@@ -12,13 +12,11 @@ public class SeamViewer extends JComponent {
 
 	BufferedImage img;
 	
-	private int [][] seams ;
-
 	private Rectangle area;
-	
+	private int [][] seams ;
+	private int[][] auxLines;
 	private int color = Color.RED.getRGB();
 
-	private int[][] auxLines;
 	
 	public SeamViewer(BufferedImage img) {
 		this.img = img;
@@ -27,11 +25,6 @@ public class SeamViewer extends JComponent {
 		this.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
 	}
 	
-	public void renderSeam(int [][] seams, int x, int y, int width, int height) {
-		this.seams = seams;
-		this.area = new Rectangle(x, y, width, height);
-		repaint();
-	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -46,12 +39,23 @@ public class SeamViewer extends JComponent {
 		g.drawImage(img, 0, 0, null);
 		
 		if (auxLines != null) {
-			renderAuxLine(g);
+			renderAuxLines(g);
 		}
 		
 	}
 
-	private void renderAuxLine(Graphics g) {
+	public void drawSeam(int [][] seams, int x, int y, int width, int height) {
+		this.seams = seams;
+		this.area = new Rectangle(x, y, width, height);
+		repaint();
+	}	
+	
+	public void drawAux(int[][] auxLines) {
+		this.auxLines = auxLines;
+		this.repaint();
+	}
+	
+	private void renderAuxLines(Graphics g) {
 		g.setColor(Color.BLUE);
 		for (int i = 0; i < auxLines.length; i++) {
 			int [] line = auxLines[i]; // { r0, c0, r1, c1};
@@ -66,19 +70,10 @@ public class SeamViewer extends JComponent {
 			int [] seam = seams[i];
 			for(int k = 0 ; k < seam.length - 2; k++) {
 				// g.drawLine(offsetX + k, offsetY + seam[k], offsetX + k, offsetY + seam[k]);
-				img.setRGB(offsetX + k, 
-						offsetY + seam[k], color);
-				
+				img.setRGB(offsetX + k, offsetY + seam[k], color);
 			}
 		}
 		
 	}
-	/**
-	 * N row x 4 columns 
-	 * @param auxLines
-	 */
-	public void renderAuxLines(int[][] auxLines) {
-		this.auxLines = auxLines;
-		this.repaint();
-	}
+	
 }
