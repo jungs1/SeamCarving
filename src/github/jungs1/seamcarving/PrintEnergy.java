@@ -12,7 +12,7 @@ public class PrintEnergy {
 		BufferedImage picture = ImageIO.read(new File("sample/test.png"));
 		System.out.printf("image is %d pixels wide by %d pixels high.\n", picture.getWidth(), picture.getHeight());
 
-		SeamCarver sc = new SeamCarver(picture);
+		SeamCarver sc = new SeamCarver(picture, null);
 
 		System.out.printf("Printing energy calculated for each pixel.\n");
 

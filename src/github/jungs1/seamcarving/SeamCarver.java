@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
 
+import github.jungs1.seamcarving.energy.EnergyFunction;
+
 public class SeamCarver {
 
 	private BufferedImage picture;
@@ -12,8 +14,10 @@ public class SeamCarver {
 	private double[][] energies;
 	int row, col;
 
-	public SeamCarver(BufferedImage input) {
+	private EnergyFunction energyFunction;
+	public SeamCarver(BufferedImage input, EnergyFunction fnc) {
 		this.picture = input;
+		this.energyFunction = fnc;
 		this.row = input.getHeight();
 		this.col = input.getWidth();
 
@@ -35,41 +39,26 @@ public class SeamCarver {
 	private void calcEnergy() {
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				if (i == 0 || j == 0 || i == row - 1 || j == col - 1) {
-					energies[i][j] = 1000.0;
-				} else {
-					energies[i][j] = this.calcEnergyHelper(rgb, i, j);
-				}
+				energies[i][j] = energyFunction.calcEnergyHelper(rgb, i, j, 1000.0);
+				
+//				if (i == 0 || j == 0 || i == row - 1 || j == col - 1) {
+//					energies[i][j] = 1000.0;
+//				} else {
+//					energies[i][j] = energyFunction.calcEnergyHelper(rgb, i, j, 1000.0);
+//				}
+				
 			}
 		}
 	}
 
-	private double calcEnergyHelper(int[][] rgb, int row, int col) {
-		int down = rgb[row - 1][col];
-		int top = rgb[row + 1][col];
-		int left = rgb[row][col - 1];
-		int right = rgb[row][col + 1];
 
-		double result = this.energyFunction(left, right) + this.energyFunction(top, down);
-		return Math.sqrt(result);
-	}
-
-	private double energyFunction(int rgb1, int rgb2) {
-		int r1 = (rgb1 >> 16) & 0xFF;
-		int g1 = (rgb1 >> 8) & 0xFF;
-		int b1 = (rgb1 >> 0) & 0xFF;
-		int r2 = (rgb2 >> 16) & 0xFF;
-		int g2 = (rgb2 >> 8) & 0xFF;
-		int b2 = (rgb2 >> 0) & 0xFF;
-		return Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2);
-	}
 
 	/*
 	 * Transpose energy matrix and return the seam
 	 */
 	public int[][] findSeams(int size) {
-		System.out.printf("row: %d, col: %d\n", row, col);
-		System.out.printf("energies: row: %d, col: %d\n", energies.length, energies[0].length);
+//		System.out.printf("row: %d, col: %d\n", row, col);
+//		System.out.printf("energies: row: %d, col: %d\n", energies.length, energies[0].length);
 		double[][] tp = new double[col][row]; // 551, 130
 		for (int ir = 0; ir < row; ir++) {
 			for (int ic = 0; ic < col; ic++) {
@@ -77,7 +66,9 @@ public class SeamCarver {
 			}
 		}
 		// TODO K까 1인 꼉우만
-		return seam(tp, col, row, size);
+		int [][] seams = seam(tp, col, row, size);
+		return seams;
+		
 	}
 
 	private int[][] seam(double[][] energies, int row, int col, int K) {

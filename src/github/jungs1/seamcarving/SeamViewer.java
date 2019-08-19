@@ -41,6 +41,13 @@ public class SeamViewer extends JComponent {
 		if (auxLines != null) {
 			renderAuxLines(g);
 		}
+		// 666, 1024
+		int y = 622;
+		int x = 999;
+				
+		g.setColor(Color.GREEN.darker());
+		g.drawLine(0, y, 4000, y);
+		g.drawLine(x, 0, x, 4000);
 		
 	}
 
@@ -59,7 +66,7 @@ public class SeamViewer extends JComponent {
 		g.setColor(Color.BLUE);
 		for (int i = 0; i < auxLines.length; i++) {
 			int [] line = auxLines[i]; // { r0, c0, r1, c1};
-			g.drawLine(line[0], line[1],line[2], line[3]);
+			g.drawLine(line[1], line[0],line[3], line[2]);
 		}
 	}
 
@@ -71,6 +78,8 @@ public class SeamViewer extends JComponent {
 			for(int k = 0 ; k < seam.length - 2; k++) {
 				// g.drawLine(offsetX + k, offsetY + seam[k], offsetX + k, offsetY + seam[k]);
 				img.setRGB(offsetX + k, offsetY + seam[k], color);
+				// x + 0, x+1, x+2
+				
 			}
 		}
 		

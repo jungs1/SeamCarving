@@ -13,6 +13,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import github.jungs1.seamcarving.energy.AdjFourFunction;
+import github.jungs1.seamcarving.energy.VerticalOriented;
+
 public class Main {
 
 	public static void main(String[] args) throws IOException {
@@ -20,7 +23,7 @@ public class Main {
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		BufferedImage text = ImageIO.read(new File("sample/in01.jpg"));
+		BufferedImage text = ImageIO.read(new File("sample/in04.png"));
 
 		SeamViewer viewer = new SeamViewer(text);
 
@@ -31,9 +34,9 @@ public class Main {
 		 * offsetX: x pixels away from left boarder of the image offsetY: y pixels away
 		 * from top boarder of the image width: width of the divided image
 		 */
-		int offsetX = 200;
+		// int offsetX = 200;
 		int offsetY = 0;
-		int width = 100;
+		int width = text.getWidth()/10; // 5%
 		int height = text.getHeight();
 
 		f.pack();
@@ -45,7 +48,8 @@ public class Main {
 		for (int x = 0; x < text.getWidth(); x += width) {
 			//			BufferedImage clip = clipImage(text, x, offsetY, width, height);
 			BufferedImage clip = RedLine.clipImage(text, x, offsetY, width, height);
-			SeamCarver sc = new SeamCarver(clip);
+			// MaxSeamCarver sc = new MaxSeamCarver(clip);
+			SeamCarver sc = new SeamCarver(clip, new AdjFourFunction());
 			int[][] seams = sc.findSeams(height);
 			/*
 			 * 1. Brute Force Method using array
@@ -82,37 +86,58 @@ public class Main {
 
 	static int[][] connect(ArrayList<int[]> lines) {
 		ArrayList<int[]> blueLines = new ArrayList<int[]>();
-		for (int i = 0; i < lines.size() - 1; i++) {
+		for (int i = 0; i < lines.size() -1; i++) {
 			//
 			int[] src = lines.get(i); //
-			// 0 1 2 3 4
+			//   0   1   2   3   4
 			// [12, 13, 14, 13, 12, scol, ecol]
 			// int sCol = line.length-2;
-
+			/**
+			 *          width(col)
+			 *     +-----------------> X
+			 *     |
+			 * h   |
+			 * row |             (srcRow, srcCOL) =  (3,7), row:3, col:7
+			 *     |
+			 *     v
+			 *     Y
+			 */
 			// tail point of src
 			int srcRow = src[src.length - 3];
-			int srcCol = src.length - 1; // tail column index
+			int srcCol = src[src.length - 1]; // tail column index
+			// int srcCol = src.length - 1; 
 			int endRow = 0;
 			int endCol = 0;
+			
 			int min = Integer.MAX_VALUE;
 			for (int k = i + 1; k < lines.size(); k++) {
 				int[] dst = lines.get(k);
 				// head point of dst
 				int dstRow = dst[0];
 				int dstCol = dst[dst.length - 2];
+				if (dstCol <= srcCol) {
+					continue;
+				}
 				int dist = Math.abs(dstRow - srcRow) + Math.abs(dstCol - srcCol);
-				if (dist < min) {
+				double slope = Math.abs(1.0*(srcRow -dstRow) / (srcCol - dstCol));
+				
+//				if ( slope > 5 ) {
+//					System.out.printf("(%d, %d) -> (%d, %d) %.3f, d: %d\n", srcRow, srcCol, dstRow, dstCol, slope, dist);
+//				}
+				if (dist < min && slope < 0.5) {
 					endRow = dstRow;
 					endCol = dstCol;
 					min = dist;
+					// System.out.printf("* new (%d, %d) -> (%d, %d) %.3f, d: %d\n", srcRow, srcCol, dstRow, dstCol, slope, dist);
 				}
 			}
 
-			int[] blue = { srcRow, srcCol, endRow, endCol };
-			blueLines.add(blue);
+			if ( endRow > 0 && endCol > 0) {
+				int[] blue = { srcRow, srcCol, endRow, endCol };
+				blueLines.add(blue);				
+			}
 
 		}
-
 		int[][] bline = new int[blueLines.size()][];
 		return blueLines.toArray(bline);
 	}
