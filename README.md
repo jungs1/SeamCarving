@@ -1,6 +1,4 @@
 # SeamCarving
-Text Line Detection Using Seam Carving <br/>
-
 Seam carving is an algorithm used to resize a given image by finding the right specific seams. Each seams represents the least energy in the image which is computed by some given energy function. Removing the seams reduces the image and inserting the seams extends the image. <br/>
 
 
