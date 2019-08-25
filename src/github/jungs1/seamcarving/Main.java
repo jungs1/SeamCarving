@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,8 +24,11 @@ public class Main {
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		BufferedImage text = ImageIO.read(new File("sample/in04.png"));
-
+		BufferedImage text = ImageIO.read(new File("sample/in01.jpg"));
+		
+//		BlurImage blur = new BlurImage();
+//		BufferedImage blurImage = blur.blurImage(text, 19);
+//		SeamViewer viewer = new SeamViewer(blurImage);
 		SeamViewer viewer = new SeamViewer(text);
 
 		f.getContentPane().add(viewer, BorderLayout.CENTER);

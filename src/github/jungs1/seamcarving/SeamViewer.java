@@ -42,12 +42,12 @@ public class SeamViewer extends JComponent {
 			renderAuxLines(g);
 		}
 		// 666, 1024
-		int y = 622;
-		int x = 999;
-				
-		g.setColor(Color.GREEN.darker());
-		g.drawLine(0, y, 4000, y);
-		g.drawLine(x, 0, x, 4000);
+//		int y = 622;
+//		int x = 999;
+//				
+//		g.setColor(Color.GREEN.darker());
+//		g.drawLine(0, y, 4000, y);
+//		g.drawLine(x, 0, x, 4000);
 		
 	}
 
