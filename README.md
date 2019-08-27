@@ -1,6 +1,7 @@
-# SeamCarving
-Seam carving is an algorithm used to resize a given image by finding the right specific seams. Each seams represents the least energy in the image which is computed by some given energy function. Removing the seams reduces the image and inserting the seams extends the image. <br/>
-
+# Abstract
+This side project was inspired by Coursera's Algorithms by Princenton course. The coursera assignment was to implement seam carving. Seam carving is an algorithm used to resize a given image without distorting the image content. The algorithm was discovered in 2007, and it now widely used in graphics applications. My project is an extension of the knowledge I gained from the course. Although the final result was decent, in my opinion, the project still needs alot work in refining the seam carving algorithm.
+<br/>
+[Coursera Assignment](https://coursera.cs.princeton.edu/algs4/assignments/seam/specification.php) <br/>
 
 **Original Image.** <br/>
 ![](/documentation/Broadway_tower.jpg) <br/>
@@ -11,24 +12,33 @@ Seam carving is an algorithm used to resize a given image by finding the right s
 **Cropping removes part of the castle.** <br/>
 ![](/documentation/Broadway_tower_cropped.png) <br/>
 <br />
-**Seam Carving.** <br/>
+**Image after applying seam carving algorithm.** <br/>
 ![](/documentation/Broadway_tower_Seam_Carving.png) <br/>
 <br />
 
-# 1. Energy Calculation <br/>
-**Energy of each pixel is calculated using the dual-gradient energy function. White pixels indicate that the energy is high. Seam carving algorithm avoids removing high energy pixels in order to save the image content after resizing.**<br/>
+# Credits
+[yeori](https://github.com/yeori) <br/>
+
+# Introduction
+Seam carving is primarily used to resize an image by finding the appropriate seams. Using this idea, seam carving algorithm could produce the right seams between text lines in order to extract the text. Although the ultimate purpose of this approach is to extract the text lines, this project is only focused on refining the seam carving algorithm to detect the right seams between text lines. 
+
+# Problem 1: Seam Identification <br/>
+**Test Input File 1.**  <br/>
+![](/documentation/in01-seam.png) <br/>
+The red line above in the image represents the seam. As seen, the seam 
+As expected, the seam represents the least energy in the image (black in this case), not being able to extract the lines. <br/>
+**Test Input File 2.** <br/>
+![](/documentation/in02-seam.png) <br/>
+However, if the test image file contains less space between the lines, seam carving algorithm can inaccurately extract the lines <br/>
+
+# Future Fixes - Energy Calculation <br/>
+The energy of each pixel is calculated using the dual-gradient energy function. There are certainly other energy functions to experiment, but since dual-gradient energy function was used in the coursera assignment, I simply used the same energy function. Maybe there are better enery functions that can better produce seams between text lines. <br/>
+![](/documentation/dual-gradient.jpg) <br/>
 **Test Input File 1.**  <br/>
 ![](/documentation/in01-energy.png) <br/>
 **Test Input File 2.** <br/>
 ![](/documentation/in02-energy.png) <br/>
 
-# 2. Seam Identification <br/>
-**Test Input File 1.**  <br/>
-![](/documentation/in01-seam.png) <br/>
-**The red line represents the seam. As expected, the seam represents the least energy in the image (black in this case), not being able to extract the lines.** <br/>
-**Test Input File 2.** <br/>
-![](/documentation/in02-seam.png) <br/>
-**However, if the test image file contains less space between the lines, seam carving algorithm can inaccurately extract the lines** <br/>
 
 
 # Seam Identification Approach 1 <br/>
