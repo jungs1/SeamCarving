@@ -51,6 +51,13 @@ public class RedLine {
 			}
 			cluster.add(seams[i]);
 		}
+		
+		if (cluster.size() > 0) {
+			int[] path = findCommonAncestor(cluster);
+			path[path.length - 2] = offset; // start column index
+			path[path.length - 1] = offset + path.length - 1; // end column index
+			paths.add(path);
+		}
 
 		int[][] p = new int[paths.size()][];
 		paths.toArray(p);

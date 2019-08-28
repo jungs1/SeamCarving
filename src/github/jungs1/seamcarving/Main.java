@@ -48,27 +48,35 @@ public class Main {
 
 		// red lines[...offset,offset+len-1]
 		ArrayList<int[]> lines = new ArrayList<int[]>();
-
+		Color seamTreeColor = transp(Color.MAGENTA, 0.0);
+		
 		for (int x = 0; x < text.getWidth(); x += width) {
 			//			BufferedImage clip = clipImage(text, x, offsetY, width, height);
 			BufferedImage clip = RedLine.clipImage(text, x, offsetY, width, height);
 			// MaxSeamCarver sc = new MaxSeamCarver(clip);
 			SeamCarver sc = new SeamCarver(clip, new AdjFourFunction());
 			int[][] seams = sc.findSeams(height);
+			System.out.println("seam lenth: " + seams.length);
 			/*
 			 * 1. Brute Force Method using array
 			 * reduceSeams removes the weird tree edges 
 			 */
 			//			int[][] paths = reduceSeams(seams, x);
-			int[][] paths = RedLine.reduceSeams(seams, x);
+			// int[][] paths = RedLine.reduceSeams(seams, x);
 
-			for (int i = 0; i < paths.length; i++) {
-				lines.add(paths[i]); // [ 23, 43, 54, 2, 4332, 434,3..]
-			}
+//			for (int i = 0; i < paths.length; i++) {
+//				lines.add(paths[i]); // [ 23, 43, 54, 2, 4332, 434,3..]
+//			}
 			// lines.addAll(Arrays.asList(pathes));
-			viewer.drawSeam(paths, x, offsetY, width, height);
+			
+			
+			viewer.drawSeam(seams,x, offsetY, width, height, seamTreeColor, false);
+			int[][] paths = RedLine.reduceSeams(seams, x);
+			System.out.println("common length : " + paths.length);
+			
+			viewer.drawSeam(paths, x, offsetY, width, height, Color.RED, false);
 
-			// viewer.renderSeam(seams, ox, offsetY, width, height);
+			// viewer.renderSeam(seams, x, offsetY, width, height);
 			// printSeams(seams);
 			//			try {
 			//				Thread.sleep(500);
@@ -77,8 +85,8 @@ public class Main {
 			//			}
 
 		}
-		int[][] blueLines = connect(lines);
-		viewer.drawAux(blueLines);
+//		int[][] blueLines = connect(lines);
+//		viewer.drawAux(blueLines);
 
 		// renderSeam(text, seams, Color.RED);
 
@@ -86,6 +94,14 @@ public class Main {
 
 		// : seams.length
 		// seam[i].length : width
+	}
+	
+	static Color transp(Color c, double alpha) {
+		int r = c.getRed();
+		int g = c.getGreen();
+		int b = c.getBlue();
+		int a = (int) (c.getAlpha() * alpha);
+		return new Color(r, g, b, a);
 	}
 
 	static int[][] connect(ArrayList<int[]> lines) {
