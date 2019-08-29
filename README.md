@@ -32,10 +32,10 @@ However, if the test image file contains less space between the lines and little
 
 # Solution for Seam Identification <br/>
 **Partitioned Image.** <br/>
-![](/documentation/common-ancestor) <br/>
+![](/documentation/common-ancestor.png) <br/>
 In order for the seam to accurately identify lines between text, seam carving algorithm was applied after partitioning the image into multiple vertical pieces. The black lines on the image indiciate the splitted image sections. The red lines are the seams. Notice how each seams look like a horizontally faced elongated tree data structure.
 **Common Ancestor.** <br/>
-![](/documentation/common-ancestor-thickness) <br/>
+![](/documentation/common-ancestor-thickness.png) <br/>
 Imagine each seams represent a tree data structure. Finding the common ancestor of each tree would give the most common path of that tree. I have highlighted the common path in red, and the rest of tree in pink. Only the common path would be used the identify the lines. <br/>
 **Blue Lines.** <br/>
 ![](/documentation/in01-no-blur.png) <br/>
