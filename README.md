@@ -31,16 +31,16 @@ However, if the test image file contains less space between the lines and little
 
 
 # Solution for Seam Identification <br/>
-**Partitioned Image.** <br/>
+**Partitioned Image** <br/>
 ![](/documentation/common-ancestor.png) <br/>
-In order for the seam to accurately identify lines between text, seam carving algorithm was applied after partitioning the image into multiple vertical pieces. The black lines on the image indiciate the splitted image sections. The red lines are the seams. Notice how each seams look like a horizontally faced elongated tree data structure.
-**Common Ancestor.** <br/>
+In order for the seam to accurately identify lines between text, seam carving algorithm was applied after partitioning the image into multiple vertical pieces. The black lines on the image indiciate the splitted image sections. The red lines are the seams. Notice how each seams look like a horizontally faced elongated tree data structure.<br/>
+**Common Ancestor** <br/>
 ![](/documentation/common-ancestor-thickness.png) <br/>
 Imagine each seams represent a tree data structure. Finding the common ancestor of each tree would give the most common path of that tree. I have highlighted the common path in red, and the rest of tree in pink. Only the common path would be used the identify the lines. <br/>
-**Blue Lines.** <br/>
+**Connecting the Red Lines** <br/>
 ![](/documentation/in01-no-blur.png) <br/>
 After the pink seams are removed, we now have to connect the red lines, to complete the line. I used a brute force method where I simply connected one end of the red endpoint to the nearest other end of the red endpoint. The connected lines are indiciated in blue. <br/>
-**Blur Image.** <br/>
+**Blur Image** <br/>
 ![](/documentation/in01-blur.png) <br/>
 ![](/documentation/in02-blur.png) <br/>
 I implemented a blur algorithm to see if seam carving algorithm improved in any way. Interestingly, blur effect did not have much improvement.. <br/>
