@@ -4,7 +4,7 @@ public class AdjFourFunction implements EnergyFunction {
 
 	@Override
 	public double calcEnergyHelper(int[][] rgb, int row, int col, double oobValue) {
-		if (row == 0 || col == 0 | row + 1 >= rgb.length || col + 1 >=rgb[0].length) {
+		if (row == 0 || col == 0 | row + 1 >= rgb.length || col + 1 >= rgb[0].length) {
 			return oobValue;
 		}
 		int down = rgb[row - 1][col];

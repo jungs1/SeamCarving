@@ -7,7 +7,6 @@ import java.util.Arrays;
 public class RedLine {
 
 	static BufferedImage clipImage(BufferedImage text, int offsetX, int offsetY, int W, int H) {
-		// 200 x 180
 		int width = Math.min(W, text.getWidth() - offsetX);
 		int height = Math.min(H, text.getHeight() - offsetY);
 
@@ -36,12 +35,7 @@ public class RedLine {
 		int leadIndex = seams[0][0]; //
 		for (int i = 0; i < seams.length; i++) {
 			if (seams[i][0] == leadIndex) {
-				// cluster.add(seams[i]);
-				// System.out.println(cluster.toString());
 			} else {
-				/*
-				 * cluster ->
-				 */
 				int[] path = findCommonAncestor(cluster);
 				path[path.length - 2] = offset; // start column index
 				path[path.length - 1] = offset + path.length - 1; // end column index
@@ -51,7 +45,7 @@ public class RedLine {
 			}
 			cluster.add(seams[i]);
 		}
-		
+
 		if (cluster.size() > 0) {
 			int[] path = findCommonAncestor(cluster);
 			path[path.length - 2] = offset; // start column index
@@ -65,11 +59,6 @@ public class RedLine {
 	}
 
 	static int[] findCommonAncestor(ArrayList<int[]> cluster) {
-		/*
-		 * [33, 34, 47, 50],[33, 34, 47, 51], [33, 34, 47, 52]
-		 *                 ---> [33, 34, 47] 
-		 * 
-		 */
 
 		int width = cluster.get(0).length;
 		int col = 0;
