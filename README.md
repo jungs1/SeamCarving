@@ -49,7 +49,3 @@ I implemented a blur algorithm to see if seam carving algorithm improved in any 
 The energy of each pixel is calculated using the dual-gradient energy function. There are certainly other energy functions to experiment, but since dual-gradient energy function was used in the coursera assignment, I simply used the same energy function. Perhaps there are other energy functions to implement for a better result. <br/>
 **Dual-gradient Energy Function** 
 ![](/documentation/dual-gradient.jpg) <br/>
-**Test Input File 1**  <br/>
-![](/documentation/in01-energy.png) <br/>
-**Test Input File 2** <br/>
-![](/documentation/in02-energy.png) <br/>
