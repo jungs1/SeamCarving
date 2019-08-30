@@ -33,7 +33,7 @@ import energyFunction.AdjFourFunction;
  * 
  * Bootstrap.java
  */
-public class Main {
+public class MainFrame {
 	static ArrayList<BufferedImage> images;
 
 	static JFrame myFrame;
