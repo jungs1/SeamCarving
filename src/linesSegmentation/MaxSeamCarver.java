@@ -1,4 +1,4 @@
-package github.jungs1.seamcarving;
+package linesSegmentation;
 
 import java.awt.image.BufferedImage;
 import java.util.Stack;

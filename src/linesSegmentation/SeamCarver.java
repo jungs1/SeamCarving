@@ -1,9 +1,9 @@
-package github.jungs1.seamcarving;
+package linesSegmentation;
 
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
-import github.jungs1.seamcarving.energy.EnergyFunction;
+import energyFunction.EnergyFunction;
 
 public class SeamCarver {
 
@@ -44,7 +44,6 @@ public class SeamCarver {
 	 * Transpose energy matrix and return the seam
 	 */
 	public int[][] findSeams(int size) {
-		System.out.printf("energies: row: %d, col: %d\n", energies.length, energies[0].length);
 		double[][] tp = new double[col][row]; // 551, 130
 		for (int ir = 0; ir < row; ir++) {
 			for (int ic = 0; ic < col; ic++) {

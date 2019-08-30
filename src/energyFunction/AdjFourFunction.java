@@ -1,27 +1,19 @@
-package github.jungs1.seamcarving.energy;
+package energyFunction;
 
-public class VerticalOriented implements EnergyFunction {
+public class AdjFourFunction implements EnergyFunction {
 
 	@Override
 	public double calcEnergyHelper(int[][] rgb, int row, int col, double oobValue) {
-
-		if (row < 2 || row + 2 >= rgb.length || col < 1 || col + 1 >= rgb[0].length) {
+		if (row == 0 || col == 0 | row + 1 >= rgb.length || col + 1 >= rgb[0].length) {
 			return oobValue;
 		}
-
+		int down = rgb[row - 1][col];
+		int top = rgb[row + 1][col];
 		int left = rgb[row][col - 1];
 		int right = rgb[row][col + 1];
 
-		int down = rgb[row - 1][col];
-		int top = rgb[row + 1][col];
-
-		int top2 = rgb[row - 2][col];
-		int down2 = rgb[row + 2][col];
-
-		double result = this.energyFunction(left, right) + this.energyFunction(top, down)
-				+ this.energyFunction(top2, down2);
+		double result = this.energyFunction(left, right) + this.energyFunction(top, down);
 		return Math.sqrt(result);
-
 	}
 
 	private double energyFunction(int rgb1, int rgb2) {

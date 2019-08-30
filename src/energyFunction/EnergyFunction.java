@@ -1,4 +1,4 @@
-package github.jungs1.seamcarving.energy;
+package energyFunction;
 
 public interface EnergyFunction {
 
