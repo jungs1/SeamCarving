@@ -4,7 +4,7 @@
 
 
 # Abstract
-This side project was inspired by Coursera's *Algorithms by Princenton* course. The coursera assignment was to simply implement seam carving. Seam carving is an algorithm used to resize a given image without distorting the image content. The algorithm was discovered in 2007, and it now widely used in graphics applications. This project is an extension of the seam carving knowledge I gained from the course. Although the final result was decent, in my opinion, the project still needs alot work. <br/>
+This side project was inspired by Coursera's *Algorithms by Princenton* course. The coursera assignment was to simply implement seam carving. Seam carving is an algorithm used to resize a given image without distorting the image content. The algorithm was discovered in 2007, and it now widely used in graphics applications. This project is an extension of the seam carving knowledge I gained from the course. Although the final result was decent, in my opinion, the project still needs a lot work. <br/>
 [Coursera Assignment](https://coursera.cs.princeton.edu/algs4/assignments/seam/specification.php) <br/>
 
 **Original Image.** <br/>
